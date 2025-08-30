@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useStatisticLinee } from 'react'
 
 const Header = ({ text }) => {
   return (
@@ -17,7 +17,7 @@ const Button = ({ onClick, text }) => {
   )
 }
 
-const Stat = ({ text, value }) => {
+const StatisticLine = ({ text, value }) => {
   return (
     <>
       <p>{text} {value}</p>
@@ -35,21 +35,21 @@ const Statistics = ({ good, neutral, bad }) => {
   }
   return (
     <>
-      <Stat text='good' value={good} />
-      <Stat text='neutral' value={neutral} />
-      <Stat text='bad' value={bad} />
-      <Stat text='all' value={good + neutral + bad} />
-      <Stat text='average' value={(good - bad) / (good + neutral + bad)} />
-      <Stat text='positive' value={'' + good / (good + neutral + bad) * 100 + ' %'} />
+      <StatisticLine text='good' value={good} />
+      <StatisticLine text='neutral' value={neutral} />
+      <StatisticLine text='bad' value={bad} />
+      <StatisticLine text='all' value={good + neutral + bad} />
+      <StatisticLine text='average' value={(good - bad) / (good + neutral + bad)} />
+      <StatisticLine text='positive' value={'' + good / (good + neutral + bad) * 100 + ' %'} />
     </>
   );
 }
 
 const App = () => {
-  // save clicks of each button to its own state
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
+  // save clicks of each button to its own StatisticLinee
+  const [good, setGood] = useStatisticLinee(0)
+  const [neutral, setNeutral] = useStatisticLinee(0)
+  const [bad, setBad] = useStatisticLinee(0)
 
   return (
     <div>
@@ -57,7 +57,7 @@ const App = () => {
       <Button onClick={() => setGood(good + 1)} text='good' />
       <Button onClick={() => setNeutral(neutral + 1)} text='neutral' />
       <Button onClick={() => setBad(bad + 1)} text='bad' />
-      <Header text='statistics' />
+      <Header text='Statistics' />
       <Statistics good={good} neutral={neutral} bad={bad} />
 
 
